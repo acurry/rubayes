@@ -24,11 +24,19 @@ class Event
   end
 
   def to_s
-    "[#{name}] #{a}/#{b}"
+    "[#{name}] : #{a}/#{b} : #{"0.3f" % p}"
   end
   
   def success
-    (@a / @b)
+    (@a / @b.to_f)
+  end
+  
+  def probability
+    success
+  end
+  
+  def p
+    success
   end
 end
 
