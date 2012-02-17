@@ -1,1 +1,2 @@
-puts "naive_bayes"
+puts "Naive Bayes Classifier"
+
