@@ -1,0 +1,1 @@
+puts "naive_bayes"
