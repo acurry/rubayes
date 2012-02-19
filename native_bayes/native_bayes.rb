@@ -13,4 +13,15 @@ class NativeBayes
       @categories_words[category] = 0
     end
   end
+  
+  def train(category, document)
+    word_count(document).each do |word, count|
+      @words[category][word] ||= 0
+      @words[category][word] += count
+      @total_words += count
+      @categories_words[category] += count
+    end
+    @categories_documents[category] += 1
+    @total_documents += 1
+  end
 end
