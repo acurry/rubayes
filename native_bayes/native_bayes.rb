@@ -1,0 +1,3 @@
+class NativeBayes
+  
+end
