@@ -1,4 +1,8 @@
+require "#{Dir.pwd}/native_bayes/native_bayes_utils.rb"
+
 class NativeBayes
+  include NativeBayesUtils
+  
   def initialize(*categories)
     @words = Hash.new
     @total_words = 0
