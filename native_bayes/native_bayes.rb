@@ -60,7 +60,7 @@ class NativeBayes
   end
   
   def word_probability(category, word)
-    (@words[category][word.stem]).to_f + 1)/@categories_words[category].to_f
+    (@words[category][word.stem].to_f + 1)/@categories_words[category].to_f
   end
   
   def category_probability(category)
