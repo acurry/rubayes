@@ -11,7 +11,8 @@ end
 describe NativeBayes do
   context "when constructed should have" do
     before :each do
-      @native_bayes = NativeBayes.new
+      @dummy_category = 'spam'
+      @native_bayes = NativeBayes.new(@dummy_category)
     end
     
     it "@words, a hash" do
@@ -40,5 +41,21 @@ describe NativeBayes do
       @native_bayes.threshold.should be_an_instance_of Float
       @native_bayes.threshold.should eq 1.5
     end
+    
+    context "and given a single category, '#{@dummy_category}', as a parameter" do
+      it "should make a new hash at @words['spam']" do
+        @native_bayes.words[@dummy_category].should be_an_instance_of Hash
+      end
+      
+      it "should set @categories_documents['#{@dummy_category}'] to zero" do
+        @native_bayes.categories_documents[@dummy_category].should eq 0
+      end
+      
+      it "should set @categories_words['#{@dummy_category}'] to zero" do
+        @native_bayes.categories_words[@dummy_category].should eq 0
+      end
+    end
   end
+  
+  
 end
