@@ -1,4 +1,5 @@
 require "#{Dir.pwd}/native_bayes/native_bayes_utils.rb"
+require 'set'
 
 class NativeBayes
   include NativeBayesUtils
@@ -10,7 +11,7 @@ class NativeBayes
     @total_documents = 0
     @categories_words = Hash.new
     @threshold = 1.5 # wat
-    @list_of_categories = []
+    @set_of_categories = Set.new
     
     categories.each do |category|
       add_category(category)
@@ -18,14 +19,14 @@ class NativeBayes
   end
   
   def add_category(category)
-    @list_of_categories << category
+    @set_of_categories << category
     @words[category] = Hash.new
     @categories_documents[category] = 0
     @categories_words[category] = 0
   end
   
   def train(category, document)
-    add_category(category) unless @list_of_categories.include? category
+    add_category(category) unless @set_of_categories.include? category
     
     word_count(document).each do |word, count|
       @words[category][word] ||= 0
