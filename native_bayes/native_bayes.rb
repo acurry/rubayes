@@ -38,4 +38,38 @@ class NativeBayes
     @categories_documents[category] += 1
     @total_documents += 1
   end
+  
+  def probabilities(document)
+    probabilities = Hash.new
+    @words.each_key do |category|
+      probabilities[category] = probability(category, document)
+    end
+    probabilities
+  end
+  
+  def probability(category, document)
+    document_probability(category, document) * category_probability(category)
+  end
+  
+  def document_probability(category, document)
+    doc_prob = 1
+    word_count(document).each do |word|
+      doc_prob *= word_probability(category, word[0])
+    end
+    doc_prob
+  end
+  
+  def word_probability(category, word)
+    (@words[category][word.stem]).to_f + 1)/@categories_words[category].to_f
+  end
+  
+  def category_probability(category)
+    @categories_documents[category].to_f/@total_documents.to_f
+  end
+  
+  def classify(document, default='unknown')
+    sorted = probabilities(document).sort {|a,b| a[1]<=>b[1]}
+    best, second_best = sorted.pop, sorted.pop
+    return best[0] if (best[1]/second_best[1] > @threshold)
+  end
 end
