@@ -39,9 +39,7 @@ class NativeBayes
   
   def probabilities(document)
     probabilities = Hash.new
-    @words.each_key do |category|
-      probabilities[category] = probability(category, document)
-    end
+    @words.each_key {|category| probabilities[category] = probability(category, document)}
     probabilities
   end
   
@@ -51,9 +49,7 @@ class NativeBayes
   
   def document_probability(category, document)
     doc_prob = 1
-    word_count(document).each do |word|
-      doc_prob *= word_probability(category, word[0])
-    end
+    word_count(document).each {|word| doc_prob *= word_probability(category, word[0])}
     doc_prob
   end
   
@@ -66,7 +62,7 @@ class NativeBayes
   end
   
   def classify(document, default='unknown')
-    sorted = probabilities(document).sort {|a,b| a[1]<=>b[1]}
+    sorted = probabilities(document).sort {|a,b| a[1] <=> b[1]}
     best, second_best = sorted.pop, sorted.pop
     return best[0] if (best[1]/second_best[1] > @threshold)
   end
