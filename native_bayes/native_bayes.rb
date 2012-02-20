@@ -1,11 +1,14 @@
-# require "#{Dir.pwd}/native_bayes/native_bayes_utils.rb"
-require_relative "native_bayes_utils"
 require 'set'
+require_relative "native_bayes_utils"
+require_relative "../db/redis_db_adapter"
 
 class NativeBayes
   include NativeBayesUtils
+  attr_reader :db
   
   def initialize
+    @db = RedisDbAdapter.new
+    
     @words = Hash.new
     @total_words = 0
     @categories_documents = Hash.new
