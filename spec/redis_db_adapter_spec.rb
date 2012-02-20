@@ -34,7 +34,7 @@ describe RedisDbAdapter do
   end
   
   describe "set and get" do
-    it "should set the key & value" do
+    it "should set and get the key & value" do
       @redis.get("foo").should be_nil
       @redis.set("foo", "bar")
       @redis.get("foo").should eq "bar"
@@ -49,6 +49,14 @@ describe RedisDbAdapter do
       @redis.get("foo_int").should eq 1.to_s
       @redis.decr("foo_int")
       @redis.get("foo_int").should eq 0.to_s
+    end
+  end
+  
+  describe "hash_set and hash_get" do
+    it "should set and get the hash via key and field" do
+      @redis.hash_get("foo_hash", "field").should be_nil
+      @redis.hash_set("foo_hash", "field", "bar")
+      @redis.hash_get("foo_hash", "field").should eq "bar"
     end
   end
 end

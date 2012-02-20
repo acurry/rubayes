@@ -32,4 +32,12 @@ class RedisDbAdapter
   def decr(key)
     @redis.decr(key)
   end
+  
+  def hash_get(key, field)
+    @redis.hget(key, field)
+  end
+  
+  def hash_set(key, field, value)
+    @redis.hset(key, field, value)
+  end
 end
