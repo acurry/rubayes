@@ -7,10 +7,11 @@ require 'pp'
 require_relative "native_bayes"
 
 categories = %w(tech sports business entertainment)
-classifier = NativeBayes.new(categories)
+classifier = NativeBayes.new
 
 content = ""
 categories.each do |category|
+  classifier.add_category(category)
   feed = "http://rss.news.yahoo.com/rss/#{category}"
   open(feed) {|s| content = s.read }
   rss = RSS::Parser.parse(content, false)
