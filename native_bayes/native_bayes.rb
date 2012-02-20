@@ -4,18 +4,16 @@ require 'set'
 class NativeBayes
   include NativeBayesUtils
   
-  def initialize(*categories)
+  def initialize(categories)
     @words = Hash.new
     @total_words = 0
     @categories_documents = Hash.new
     @total_documents = 0
     @categories_words = Hash.new
-    @threshold = 1.5 # wat
+    @threshold = 1.5 
     @set_of_categories = Set.new
     
-    categories.each do |category|
-      add_category(category)
-    end
+    categories.each {|category| add_category(category)}
   end
   
   def add_category(category)
