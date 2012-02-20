@@ -2,6 +2,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     hpricot (0.8.6)
+    redis (2.2.2)
     stemmer (1.0.1)
 
 PLATFORMS
@@ -9,4 +10,5 @@ PLATFORMS
 
 DEPENDENCIES
   hpricot
+  redis
   stemmer
