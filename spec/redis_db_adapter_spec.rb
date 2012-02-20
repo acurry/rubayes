@@ -8,6 +8,10 @@ describe RedisDbAdapter do
     @redis.redis.flushdb
   end
   
+  after :each do
+    @redis.redis.flushdb
+  end
+  
   describe "initialize" do
     context "given no parameters" do
       it "should initialize a new base Redis client with default parameters" do

@@ -8,6 +8,13 @@ module NativeBayesRedisKeyset
   TOTAL_WORDS_SUBKEY = "total_words"
   THRESHOLD_SUBKEY = "threshold"
   
+  # @words
+  # => native_bayes:words
+  # @words[category] => hash
+  # => native_bayes:words:category
+  # @words[category][word] => integer
+  # => native_bayes:words:category:word 
+  
   def root_key
     "#{ROOT_KEY}"
   end
