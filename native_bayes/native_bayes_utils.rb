@@ -1,5 +1,5 @@
-require "#{Dir.pwd}/native_bayes/common_words.rb"
 require "stemmer"
+require_relative "common_words"
 
 module NativeBayesUtils
   def word_count(document)

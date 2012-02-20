@@ -3,8 +3,8 @@ require 'rss/1.0'
 require 'rss/2.0'
 require 'open-uri'
 require 'hpricot'
-require_relative "native_bayes"
 require 'pp'
+require_relative "native_bayes"
 
 categories = %w(tech sports business entertainment)
 classifier = NativeBayes.new(categories)

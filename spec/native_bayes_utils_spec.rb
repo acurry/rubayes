@@ -1,4 +1,4 @@
-require "#{Dir.pwd}/native_bayes/native_bayes_utils.rb"
+require_relative "../native_bayes/native_bayes_utils"
 
 class DummyUtils; include NativeBayesUtils; end
 

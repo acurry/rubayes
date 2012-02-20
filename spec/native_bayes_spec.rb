@@ -1,4 +1,4 @@
-require "#{Dir.pwd}/native_bayes/native_bayes.rb"
+require_relative "../native_bayes/native_bayes"
 
 # make getters & setters in order to test
 # NativeBayes attributes
