@@ -35,4 +35,12 @@ class NativeBayesRedisAdapter
   def increment_categories_documents_for_category_by(category, value)
     @redis.hincrby(categories_documents_key, category, value)
   end
+  
+  def increment_categories_words_for_category_by(category, value)
+    @redis.hincrby(categories_words_key, category, value)
+  end
+  
+  def increment_words_categories_for_category_and_word_by(category, word, value)
+    @redis.hincrby(words_category_hash_key(category), word, value)
+  end
 end

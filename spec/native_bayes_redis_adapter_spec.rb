@@ -10,6 +10,11 @@ describe NativeBayesRedisAdapter do
     @nbra.redis.flushdb
   end
   
+  after :each do
+    @nbra.redis.select(15)
+    @nbra.redis.flushdb
+  end
+  
   describe "initialize" do
     it "should create a new instance of a Redis client" do
       @nbra.redis.should be_an_instance_of Redis
@@ -55,11 +60,17 @@ describe NativeBayesRedisAdapter do
 
   # redis.hincrby key, field, increment  
   describe "increment_categories_words_for_category_by" do
-    it "should increment @categories_words[<category>] by count"
+    it "should increment @categories_words[<category>] by count" do
+      @nbra.increment_categories_words_for_category_by("spam", 10)
+      @nbra.redis.hget(@nbra.categories_words_key, "spam").should eq 10.to_s
+    end
   end
   
   # redis.hincrby key, field, increment
   describe "increment_words_categories_for_word_by" do
-    it "should increment @words[<category>][<word>] by count"
+    it "should increment @words[<category>][<word>] by count" do
+      @nbra.increment_words_categories_for_category_and_word_by("spam", "money", 20)
+      @nbra.redis.hget(@nbra.words_category_hash_key("spam"), "money").should eq 20.to_s
+    end
   end
 end
