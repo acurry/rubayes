@@ -6,6 +6,12 @@ class NativeBayes
   include NativeBayesUtils
   attr_reader :db
   
+  # set "native_bayes:categories_documents" Hash.new
+  # set "native_bayes:total_documents" 0
+  # set "native_bayes:categories_words" Hash.new
+  # set "native_bayes:threshold" 1.5
+  # set "native_bayes:set_of_categories" Set.new
+  
   def initialize
     @db = RedisDbAdapter.new
     

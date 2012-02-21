@@ -7,6 +7,9 @@ module NativeBayesRedisKeyset
   TOTAL_DOCUMENTS_SUBKEY = "total_documents"
   TOTAL_WORDS_SUBKEY = "total_words"
   THRESHOLD_SUBKEY = "threshold"
+  SET_OF_CATEGORIES_SUBKEY = "set_of_categories"
+  PLACEHOLDER_KEY = "qwertyuio"
+  PLACEHOLDER_VALUE = "asdfghjkl"
   
   # @words
   # => native_bayes:words
@@ -23,8 +26,12 @@ module NativeBayesRedisKeyset
     "#{root_key}#{DELIMITER}"
   end
   
-  def words_hash_key
-    "#{root_key_with_delimiter}#{WORDS_HASH_SUBKEY}"
+  def set_of_categories_key
+    "#{root_key_with_delimiter}#{SET_OF_CATEGORIES_SUBKEY}"
+  end
+  
+  def words_category_hash_key(category)
+    "#{root_key_with_delimiter}#{WORDS_HASH_SUBKEY}#{DELIMITER}#{category}"
   end
   
   def categories_documents_key
