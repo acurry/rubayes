@@ -46,8 +46,11 @@ describe NativeBayesRedisAdapter do
   end
   
   # redis.hincrby key, field, increment
-  describe "increment_categories_document_for_category_by" do
-    it "should increment @categories_documents[<category>] by count"
+  describe "increment_categories_documents_for_category_by" do
+    it "should increment @categories_documents[<category>] by count" do
+      @nbra.increment_categories_documents_for_category_by("spam", 2)
+      @nbra.redis.hget(@nbra.categories_documents_key, "spam").should eq 2.to_s
+    end
   end
 
   # redis.hincrby key, field, increment  

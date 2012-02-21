@@ -31,4 +31,8 @@ class NativeBayesRedisAdapter
   def increment_total_documents_by(value)
     @redis.incrby(total_documents_key, value)
   end
+  
+  def increment_categories_documents_for_category_by(category, value)
+    @redis.hincrby(categories_documents_key, category, value)
+  end
 end
