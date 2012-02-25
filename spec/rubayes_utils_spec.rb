@@ -1,4 +1,4 @@
-require_relative "../native_bayes/native_bayes_utils"
+require_relative "../rubayes/rubayes_utils"
 
 class DummyUtils; include RubayesUtils; end
 

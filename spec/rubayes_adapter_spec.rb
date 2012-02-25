@@ -1,5 +1,5 @@
 require 'mock_redis'
-require_relative '../db/native_bayes_redis_adapter'
+require_relative '../db/rubayes_redis_adapter'
 
 class RubayesRedisAdapter; attr_accessor :redis; end
 

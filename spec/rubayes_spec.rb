@@ -1,4 +1,4 @@
-require_relative "../native_bayes/native_bayes"
+require_relative "../rubayes/rubayes"
 
 # make getters & setters in order to test
 # Rubayes attributes

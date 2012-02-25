@@ -1,6 +1,6 @@
 module RubayesRedisKeyset
   DELIMITER = ":"
-  ROOT_KEY = "native_bayes"
+  ROOT_KEY = "rubayes"
   WORDS_HASH_SUBKEY = "words"
   CATEGORIES_DOCUMENTS_HASH_SUBKEY = "categories_documents"
   CATEGORIES_WORDS_HASH_SUBKEY = "categories_words"
@@ -12,11 +12,11 @@ module RubayesRedisKeyset
   PLACEHOLDER_VALUE = "asdfghjkl"
   
   # @words
-  # => native_bayes:words
+  # => rubayes:words
   # @words[category] => hash
-  # => native_bayes:words:category
+  # => rubayes:words:category
   # @words[category][word] => integer
-  # => native_bayes:words:category:word 
+  # => rubayes:words:category:word 
   
   def root_key
     "#{ROOT_KEY}"

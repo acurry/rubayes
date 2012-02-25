@@ -4,7 +4,7 @@ require 'rss/2.0'
 require 'open-uri'
 require 'hpricot'
 require 'pp'
-require_relative "native_bayes"
+require_relative "rubayes"
 
 categories = %w(tech sports business entertainment)
 classifier = Rubayes.new

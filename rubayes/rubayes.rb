@@ -1,16 +1,16 @@
 require 'set'
-require_relative "native_bayes_utils"
+require_relative "rubayes_utils"
 require_relative "../db/redis_db_adapter"
 
 class Rubayes
   include RubayesUtils
   attr_reader :db
   
-  # set "native_bayes:categories_documents" Hash.new
-  # set "native_bayes:total_documents" 0
-  # set "native_bayes:categories_words" Hash.new
-  # set "native_bayes:threshold" 1.5
-  # set "native_bayes:set_of_categories" Set.new
+  # set "rubayes:categories_documents" Hash.new
+  # set "rubayes:total_documents" 0
+  # set "rubayes:categories_words" Hash.new
+  # set "rubayes:threshold" 1.5
+  # set "rubayes:set_of_categories" Set.new
   
   def initialize
     @db = RedisDbAdapter.new
