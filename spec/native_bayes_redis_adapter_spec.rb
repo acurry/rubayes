@@ -1,24 +1,12 @@
-require 'redis'
+require 'mock_redis'
 require_relative '../db/native_bayes_redis_adapter'
 
-class NativeBayesRedisAdapter; attr_reader :redis; end
+class NativeBayesRedisAdapter; attr_accessor :redis; end
 
 describe NativeBayesRedisAdapter do
   before :each do
     @nbra = NativeBayesRedisAdapter.new
-    @nbra.redis.select(15)
-    @nbra.redis.flushdb
-  end
-  
-  after :each do
-    @nbra.redis.select(15)
-    @nbra.redis.flushdb
-  end
-  
-  describe "initialize" do
-    it "should create a new instance of a Redis client" do
-      @nbra.redis.should be_an_instance_of Redis
-    end
+    @nbra.redis = MockRedis.new
   end
   
   describe "categories" do
@@ -37,14 +25,14 @@ describe NativeBayesRedisAdapter do
   end
   
   describe "increment_total_words_by" do
-    it "should increment @total_words by count" do
+    it "should increment the total number of words by count" do
       @nbra.increment_total_words_by(3)
       @nbra.redis.get(@nbra.total_words_key).should eq 3.to_s
     end
   end
   
   describe "increment_total_documents_by" do
-    it "should increment @total_documents by count" do
+    it "should increment the total number of documents by count" do
       @nbra.increment_total_documents_by(6)
       @nbra.redis.get(@nbra.total_documents_key).should eq 6.to_s
     end
@@ -69,8 +57,8 @@ describe NativeBayesRedisAdapter do
   # redis.hincrby key, field, increment
   describe "increment_words_categories_for_word_by" do
     it "should increment @words[<category>][<word>] by count" do
-      @nbra.increment_words_categories_for_category_and_word_by("spam", "money", 20)
-      @nbra.redis.hget(@nbra.words_category_hash_key("spam"), "money").should eq 20.to_s
+      @nbra.increment_words_categories_for_category_and_word_by("spam", "viagra", 20)
+      @nbra.redis.hget(@nbra.words_category_hash_key("spam"), "viagra").should eq 20.to_s
     end
   end
 end
