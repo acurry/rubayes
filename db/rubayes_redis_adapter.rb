@@ -43,4 +43,24 @@ class RubayesRedisAdapter
   def increment_words_categories_for_category_and_word_by(category, word, value)
     @redis.hincrby(words_category_hash_key(category), word, value)
   end
+  
+  def total_words
+    @redis.get(total_words_key)
+  end
+  
+  def total_documents
+    @redis.get(total_documents_key)
+  end
+  
+  def categories_documents(category)
+    @redis.hget(categories_documents_key, category)
+  end
+  
+  def categories_words(category)
+    @redis.hget(categories_words_key, category)
+  end
+  
+  def words_categories_category(category, word)
+    @redis.hget(words_category_hash_key(category), word)
+  end
 end

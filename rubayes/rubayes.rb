@@ -1,6 +1,6 @@
 require 'set'
 require_relative "rubayes_utils"
-require_relative "../db/redis_db_adapter"
+require_relative "../db/rubayes_redis_adapter"
 
 class Rubayes
   include RubayesUtils
@@ -13,7 +13,7 @@ class Rubayes
   # set "rubayes:set_of_categories" Set.new
   
   def initialize
-    @db = RedisDbAdapter.new
+    @db = RubayesRedisAdapter.new
     
     @words = Hash.new
     @total_words = 0
