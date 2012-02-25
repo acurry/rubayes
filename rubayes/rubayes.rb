@@ -1,4 +1,5 @@
 require 'set'
+require 'pp'
 require_relative "rubayes_utils"
 require_relative "../db/rubayes_redis_adapter"
 
@@ -14,40 +15,36 @@ class Rubayes
   
   def initialize
     @db = RubayesRedisAdapter.new
-    
-    @words = Hash.new
-    @total_words = 0
-    @categories_documents = Hash.new
-    @total_documents = 0
-    @categories_words = Hash.new
-    @threshold = 1.5 
-    @set_of_categories = Set.new
-  end
-  
-  def add_category(category)
-    @set_of_categories << category
-    @words[category] = Hash.new
-    @categories_documents[category] = 0
-    @categories_words[category] = 0
+        
+    # @words = Hash.new
+    # @total_words = 0
+    # @categories_documents = Hash.new
+    # @total_documents = 0
+    # @categories_words = Hash.new
+    # @threshold = 1.5 
+    # @set_of_categories = Set.new
   end
   
   def train(category, document)
-    add_category(category) unless @set_of_categories.include? category
+    @db.add_category(category)
     
     word_count(document).each do |word, count|
-      @words[category][word] ||= 0
-      @words[category][word] += count
-      @total_words += count
-      @categories_words[category] += count
+      @db.increment_words_categories_word(category, word, count)
+      @db.total_words += count
+      @db.increment_categories_words(category, count)
     end
     
-    @categories_documents[category] += 1
-    @total_documents += 1
+    @db.increment_categories_documents(category, 1)
+    @db.total_documents += 1
   end
   
   def probabilities(document)
     probabilities = Hash.new
-    @words.each_key {|category| probabilities[category] = probability(category, document)}
+    
+    @db.words.each_key do |category| 
+      pp category
+      probabilities[category] = probability(category, document)
+    end
     probabilities
   end
   
@@ -62,16 +59,16 @@ class Rubayes
   end
   
   def word_probability(category, word)
-    (@words[category][word.stem].to_f + 1)/@categories_words[category].to_f
+    ((@db.words_categories_word(category, word) + 1.0).to_f)/@db.categories_words(category).to_f
   end
   
   def category_probability(category)
-    @categories_documents[category].to_f/@total_documents.to_f
+    @db.categories_documents(category).to_f/@db.total_documents.to_f
   end
   
   def classify(document, default='unknown')
     sorted = probabilities(document).sort {|a,b| a[1] <=> b[1]}
     best, second_best = sorted.pop, sorted.pop
-    return best[0] if (best[1]/second_best[1] > @threshold)
+    return best[0] if (best[1]/second_best[1] > @db.threshold)
   end
 end

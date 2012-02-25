@@ -11,7 +11,7 @@ classifier = Rubayes.new
 
 content = ""
 categories.each do |category|
-  classifier.add_category(category)
+  # classifier.add_category(category)
   feed = "http://rss.news.yahoo.com/rss/#{category}"
   open(feed) {|s| content = s.read }
   rss = RSS::Parser.parse(content, false)

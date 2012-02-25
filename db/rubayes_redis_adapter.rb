@@ -12,36 +12,28 @@ class RubayesRedisAdapter
     @redis = Redis.new(:host=>host, :port=>port)
   end
   
+  def threshold
+    @redis.get(threshold_key).to_f
+  end
+  
+  def threshold=(value)
+    @redis.set(threshold_key, value)
+  end
+  
   def categories
     @redis.smembers set_of_categories_key
   end
   
-  def add_to_set_of_categories(category)
+  def add_category(category)
     @redis.sadd set_of_categories_key, category
   end
   
-  def set_categorized_word_count(category, word, count)
-    @redis.hset(words_category_hash_key(category), word, count)
-  end
-  
-  def increment_total_words_by(value)
-    @redis.incrby(total_words_key, value)
-  end
-  
-  def increment_total_documents_by(value)
-    @redis.incrby(total_documents_key, value)
-  end
-  
-  def increment_categories_documents_for_category_by(category, value)
-    @redis.hincrby(categories_documents_key, category, value)
-  end
-  
-  def increment_categories_words_for_category_by(category, value)
-    @redis.hincrby(categories_words_key, category, value)
-  end
-  
-  def increment_words_categories_for_category_and_word_by(category, word, value)
-    @redis.hincrby(words_category_hash_key(category), word, value)
+  def words
+    words_categories = {}
+    categories.each do |category|
+      words_categories[category] = @redis.hgetall words_category_hash_key(category)
+    end
+    words_categories
   end
   
   def total_words
@@ -82,5 +74,17 @@ class RubayesRedisAdapter
   
   def words_categories_word=(args)
     @redis.hset(words_category_hash_key(args[0]), args[1], args[2])
+  end
+  
+  def increment_categories_documents(category, value)
+    @redis.hincrby(categories_documents_key, category, value)
+  end
+  
+  def increment_categories_words(category, value)
+    @redis.hincrby(categories_words_key, category, value)
+  end
+  
+  def increment_words_categories_word(category, word, value)
+    @redis.hincrby(words_category_hash_key(category), word, value)
   end
 end

@@ -22,13 +22,17 @@ class MockRedis
     @redis[key]
   end
   
-  def hset(field, key, value)
-    @redis[field] ||= {}
-    @redis[field][key] = value
+  def hset(key, field, value)
+    @redis[key] ||= {}
+    @redis[key][field] = value
   end
   
-  def hget(field, key)
-    @redis[field][key].to_s
+  def hget(key, field)
+    @redis[key][field].to_s
+  end
+  
+  def hgetall(key)
+    @redis[key]
   end
   
   def incrby(key, value)
@@ -36,9 +40,9 @@ class MockRedis
     @redis[key] += value
   end
   
-  def hincrby(field, key, value)
-    @redis[field] ||= {}
-    @redis[field][key] ||= 0
-    @redis[field][key] += value
+  def hincrby(key, field, value)
+    @redis[key] ||= {}
+    @redis[key][field] ||= 0
+    @redis[key][field] += value
   end
 end
