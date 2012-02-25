@@ -5,6 +5,10 @@ class MockRedis
     @redis = {}
   end
   
+  def flushdb
+    @redis = {}
+  end
+  
   def set(key, value)
     @redis[key] = value
   end

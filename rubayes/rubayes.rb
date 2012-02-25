@@ -7,22 +7,9 @@ class Rubayes
   include RubayesUtils
   attr_reader :db
   
-  # set "rubayes:categories_documents" Hash.new
-  # set "rubayes:total_documents" 0
-  # set "rubayes:categories_words" Hash.new
-  # set "rubayes:threshold" 1.5
-  # set "rubayes:set_of_categories" Set.new
-  
-  def initialize
+  def initialize(static=true)
     @db = RubayesRedisAdapter.new
-        
-    # @words = Hash.new
-    # @total_words = 0
-    # @categories_documents = Hash.new
-    # @total_documents = 0
-    # @categories_words = Hash.new
-    # @threshold = 1.5 
-    # @set_of_categories = Set.new
+    @db.flushdb if static        
   end
   
   def train(category, document)

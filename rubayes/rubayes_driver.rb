@@ -6,12 +6,14 @@ require 'hpricot'
 require 'pp'
 require_relative "rubayes"
 
+# if true, flush redis before each run
+STATIC = false
+
 categories = %w(tech sports business entertainment)
-classifier = Rubayes.new
+classifier = Rubayes.new(STATIC)
 
 content = ""
 categories.each do |category|
-  # classifier.add_category(category)
   feed = "http://rss.news.yahoo.com/rss/#{category}"
   open(feed) {|s| content = s.read }
   rss = RSS::Parser.parse(content, false)

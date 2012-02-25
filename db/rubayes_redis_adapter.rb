@@ -12,6 +12,10 @@ class RubayesRedisAdapter
     @redis = Redis.new(:host=>host, :port=>port)
   end
   
+  def flushdb
+    @redis.flushdb
+  end
+  
   def threshold
     @redis.get(threshold_key).to_f
   end

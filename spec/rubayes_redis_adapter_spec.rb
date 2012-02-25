@@ -29,7 +29,8 @@ describe RubayesRedisAdapter do
     it "should return the hash of all words and their counts in the specified category" do
       @rra.words_categories_word = "lifestyle", "decorating", 11
       @rra.words_categories_word = "lifestyle", "harto", 22
-      @rra.words("lifestyle").should eq({"decorating" => 11, "harto" => 22})
+      @rra.add_category("lifestyle")
+      @rra.words.should eq({"lifestyle" => {"decorating" => 11, "harto" => 22}})
     end
   end
   
