@@ -1,8 +1,8 @@
-require_relative "../native_bayes/native_bayes_utils"
+require_relative "../rubayes/rubayes_utils"
 
-class DummyUtils; include NativeBayesUtils; end
+class DummyUtils; include RubayesUtils; end
 
-describe NativeBayesUtils do
+describe RubayesUtils do
   describe "word_count" do
     before :each do
       @dummy_utils = DummyUtils.new

@@ -1,18 +1,18 @@
-require_relative "../native_bayes/native_bayes"
+require_relative "../rubayes/rubayes"
 
 # make getters & setters in order to test
-# NativeBayes attributes
-class NativeBayes
+# Rubayes attributes
+class Rubayes
   attr_accessor :words, :total_words
   attr_accessor :categories_documents, :total_documents
   attr_accessor :categories_words, :threshold, :set_of_categories
 end
 
-describe NativeBayes do
+describe Rubayes do
   context "when constructed should have" do
     before :each do
       @dummy_category = 'spam'
-      @nb = NativeBayes.new
+      @nb = Rubayes.new
       @nb.add_category(@dummy_category)
     end
     
@@ -47,7 +47,7 @@ describe NativeBayes do
   describe "add_category" do
     before :each do
       @dummy_category = "dummy"
-      @nb = NativeBayes.new
+      @nb = Rubayes.new
       @nb.add_category(@dummy_category)
     end
     
@@ -70,7 +70,7 @@ describe NativeBayes do
   
   describe "train" do
     before :each do
-      @nb = NativeBayes.new
+      @nb = Rubayes.new
       @dummy_spam_category = "spam"
       @dummy_nonspam_category = "tsech"
       @dummy_spam_doc = "Get money rich quick via big viagra member!"
@@ -120,7 +120,7 @@ describe NativeBayes do
   
   describe "word_probability" do
     before :each do
-      @nb = NativeBayes.new
+      @nb = Rubayes.new
       @dummy_tech = "google apple java cool"
       @dummy_spam = "big money get rich quick via viagra penis member enlargment"
       ["tech", "spam"].each {|category| @nb.add_category(category)}
@@ -143,7 +143,7 @@ describe NativeBayes do
   
   describe "category_probability" do
     before :each do
-      @nb = NativeBayes.new
+      @nb = Rubayes.new
       @dummy_tech = "google apple java cool"
       @dummy_spam = "big money get rich quick via viagra penis member enlargment"
       ["tech", "spam"].each {|category| @nb.add_category(category)}

@@ -1,7 +1,7 @@
 require "stemmer"
 require_relative "common_words"
 
-module NativeBayesUtils
+module RubayesUtils
   def word_count(document)
     words = document.gsub(/[^\w\s]/,"").split
     d = Hash.new

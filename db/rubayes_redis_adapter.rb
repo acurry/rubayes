@@ -1,12 +1,12 @@
 require 'redis'
-require_relative '../native_bayes/native_bayes'
-require_relative 'native_bayes_redis_keyset'
+require_relative '../rubayes/rubayes'
+require_relative 'rubayes_redis_keyset'
 
 DEFAULT_REDIS_HOST = "127.0.0.1"
 DEFAULT_REDIS_PORT = 6379
 
-class NativeBayesRedisAdapter
-  include NativeBayesRedisKeyset
+class RubayesRedisAdapter
+  include RubayesRedisKeyset
   
   def initialize(host=DEFAULT_REDIS_HOST, port=DEFAULT_REDIS_PORT)
     @redis = Redis.new(:host=>host, :port=>port)

@@ -4,10 +4,10 @@ require 'rss/2.0'
 require 'open-uri'
 require 'hpricot'
 require 'pp'
-require_relative "native_bayes"
+require_relative "rubayes"
 
 categories = %w(tech sports business entertainment)
-classifier = NativeBayes.new
+classifier = Rubayes.new
 
 content = ""
 categories.each do |category|

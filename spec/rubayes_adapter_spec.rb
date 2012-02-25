@@ -1,11 +1,11 @@
 require 'mock_redis'
-require_relative '../db/native_bayes_redis_adapter'
+require_relative '../db/rubayes_redis_adapter'
 
-class NativeBayesRedisAdapter; attr_accessor :redis; end
+class RubayesRedisAdapter; attr_accessor :redis; end
 
-describe NativeBayesRedisAdapter do
+describe RubayesRedisAdapter do
   before :each do
-    @nbra = NativeBayesRedisAdapter.new
+    @nbra = RubayesRedisAdapter.new
     @nbra.redis = MockRedis.new
   end
   
