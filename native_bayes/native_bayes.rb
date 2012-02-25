@@ -2,8 +2,8 @@ require 'set'
 require_relative "native_bayes_utils"
 require_relative "../db/redis_db_adapter"
 
-class NativeBayes
-  include NativeBayesUtils
+class Rubayes
+  include RubayesUtils
   attr_reader :db
   
   # set "native_bayes:categories_documents" Hash.new

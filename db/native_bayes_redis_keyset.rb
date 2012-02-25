@@ -1,4 +1,4 @@
-module NativeBayesRedisKeyset
+module RubayesRedisKeyset
   DELIMITER = ":"
   ROOT_KEY = "native_bayes"
   WORDS_HASH_SUBKEY = "words"

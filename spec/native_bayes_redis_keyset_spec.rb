@@ -1,8 +1,8 @@
 require_relative "../db/native_bayes_redis_keyset"
 
-class DummyKeysetUser; include NativeBayesRedisKeyset; end
+class DummyKeysetUser; include RubayesRedisKeyset; end
 
-describe NativeBayesRedisKeyset do
+describe RubayesRedisKeyset do
   before :each do
     @dummy = DummyKeysetUser.new
   end

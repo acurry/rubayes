@@ -7,7 +7,7 @@ require 'pp'
 require_relative "native_bayes"
 
 categories = %w(tech sports business entertainment)
-classifier = NativeBayes.new
+classifier = Rubayes.new
 
 content = ""
 categories.each do |category|
