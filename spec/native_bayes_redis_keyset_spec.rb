@@ -19,9 +19,15 @@ describe NativeBayesRedisKeyset do
     end
   end
   
-  describe "words_hash_key" do
+  describe "set_of_categories_key" do
+    it "should return the set_of_categories key" do
+      @dummy.set_of_categories_key.should eq "native_bayes:set_of_categories"
+    end
+  end
+  
+  describe "words_category_hash_key" do
     it "should return the words hash key" do
-      @dummy.words_hash_key.should eq "native_bayes:words"
+      @dummy.words_category_hash_key("tech").should eq "native_bayes:words:tech"
     end
   end
   
