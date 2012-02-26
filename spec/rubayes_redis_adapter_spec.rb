@@ -1,11 +1,12 @@
 require 'mock_redis'
 require_relative '../db/rubayes_redis_adapter'
 
-class RubayesRedisAdapter; attr_accessor :redis; end
+module RubayesRedisAdapter; attr_accessor :redis; end
+class DummyRubayesRedisAdapter; include RubayesRedisAdapter; end
 
 describe RubayesRedisAdapter do
   before :each do
-    @rra = RubayesRedisAdapter.new
+    @rra = DummyRubayesRedisAdapter.new
     @rra.redis = MockRedis.new
   end
   
