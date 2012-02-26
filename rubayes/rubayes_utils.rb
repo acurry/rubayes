@@ -2,6 +2,8 @@ require "stemmer"
 require_relative "common_words"
 
 module RubayesUtils
+  def initialize; end
+  
   def word_count(document)
     words = document.gsub(/[^\w\s]/,"").split
     d = Hash.new

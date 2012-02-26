@@ -1,62 +1,59 @@
+require_relative "../spec/mock_redis"
 require_relative "../rubayes/rubayes"
-
-# make getters & setters in order to test
-# Rubayes attributes
-class Rubayes; attr_accessor :db; end
 
 describe Rubayes do  
   describe "train" do
     before :each do
       @nb = Rubayes.new
-      @nb.db.redis = MockRedis.new
+      @nb.redis = MockRedis.new
       @dummy_spam_category = "spam"
-      @dummy_nonspam_category = "tsech"
+      @dummy_nonspam_category = "tech"
       @dummy_spam_doc = "Get money rich quick via big viagra member!"
       @dummy_nonspam_doc = "Google released their new API for Gmail and Gmaps"
     end
     
+    it "should increment the document counter for the category by 1" do
+      @nb.categories_documents = @dummy_spam_category, 0
+      @nb.train(@dummy_spam_category, @dummy_spam_doc)
+      @nb.categories_documents(@dummy_spam_category).should eq 1
+    end
+    
+    it "should increment the total number of documents by 1" do
+      @nb.total_documents.should eq 0
+      @nb.train(@dummy_spam_category, @dummy_spam_doc)
+      @nb.total_documents.should eq 1
+    end
+    
     context "for each word in the document" do
-      it "should initialize the word's count for the category to zero if it hasn't been initialized" do
-        @nb.db.words_categories_word = @dummy_spam_category, "rich", 0
-        @nb.db.words_categories_word(@dummy_spam_category, "rich").should eq 0
+      it "should initialize the category's word's count to zero if it hasn't been initialized" do
+        @nb.words_categories_word = @dummy_spam_category, "rich", 0
+        @nb.words_categories_word(@dummy_spam_category, "rich").should eq 0
       end
       
-      it "should add the count for each word in the document to the word's total count in the words[cat] hash" do
+      it "should add to the category's word's count" do
         @nb.train(@dummy_spam_category, @dummy_spam_doc)
-        @nb.db.words_categories_word(@dummy_spam_category, "rich").should eq 1
+        @nb.words_categories_word(@dummy_spam_category, "rich").should eq 1
       end
       
       it "should increment the total word count by the count of the current word" do
         @nb.train(@dummy_spam_category, @dummy_spam_doc)
-        @nb.db.total_words.should eq 6
+        @nb.total_words.should eq 6
       end
       
-      it "should add the total count of distinct words for the category in the hash of word categories" do
+      it "should add to the total of distinct words in the category" do
         @nb.train(@dummy_spam_category, @dummy_spam_doc)
-        @nb.db.categories_words(@dummy_spam_category).should eq 6
+        @nb.categories_words(@dummy_spam_category).should eq 6
       end
-    end
-    
-    it "should increment the document counter for the category by 1" do
-      @nb.db.categories_documents = @dummy_spam_category, 0
-      @nb.train(@dummy_spam_category, @dummy_spam_doc)
-      @nb.db.categories_documents(@dummy_spam_category).should eq 1
-    end
-    
-    it "should increment the total number of documents by 1" do
-      @nb.db.total_documents.should eq 0
-      @nb.train(@dummy_spam_category, @dummy_spam_doc)
-      @nb.db.total_documents.should eq 1
     end
   end
   
   describe "word_probability" do
     before :each do
       @nb = Rubayes.new
-      @nb.db.redis = MockRedis.new
+      @nb.redis = MockRedis.new
       @dummy_tech = "google apple java cool"
       @dummy_spam = "big money get rich quick via viagra penis member enlargment"
-      ["tech", "spam"].each {|category| @nb.db.add_category(category)}
+      ["tech", "spam"].each {|category| @nb.add_category(category)}
       @nb.train("tech", @dummy_tech)
       @nb.train("spam", @dummy_spam)
     end
@@ -77,10 +74,10 @@ describe Rubayes do
   describe "category_probability" do
     before :each do
       @nb = Rubayes.new
-      @nb.db.redis = MockRedis.new
+      @nb.redis = MockRedis.new
       @dummy_tech = "google apple java cool"
       @dummy_spam = "big money get rich quick via viagra penis member enlargment"
-      ["tech", "spam"].each {|category| @nb.db.add_category(category)}
+      ["tech", "spam"].each {|category| @nb.add_category(category)}
       @nb.train("tech", @dummy_tech)
       @nb.train("spam", @dummy_spam)
       @nb.train("business", @dummy_tech)

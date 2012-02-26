@@ -1,15 +1,16 @@
 require 'redis'
-require_relative '../rubayes/rubayes'
 require_relative 'rubayes_redis_keyset'
 
 DEFAULT_REDIS_HOST = "127.0.0.1"
 DEFAULT_REDIS_PORT = 6379
 
-class RubayesRedisAdapter
+module RubayesRedisAdapter
   include RubayesRedisKeyset
   
-  def initialize(host=DEFAULT_REDIS_HOST, port=DEFAULT_REDIS_PORT)
-    @redis = Redis.new(:host=>host, :port=>port)
+  attr_accessor :redis
+  
+  def initialize
+    @redis = Redis.new  
   end
   
   def flushdb
@@ -44,8 +45,18 @@ class RubayesRedisAdapter
     @redis.get(total_words_key).to_i
   end
   
+  # TODO: make this work such that 
+  # total_documents += some_int will work
   def total_documents
     @redis.get(total_documents_key).to_i
+  end
+  
+  def increment_total_words(value)
+    @redis.incrby(total_words_key, value)
+  end
+  
+  def increment_total_documents(value)
+    @redis.incrby(total_documents_key, value)
   end
   
   def categories_documents(category)
@@ -61,11 +72,11 @@ class RubayesRedisAdapter
   end
   
   def total_words=(value)
-    @redis.set(total_words_key, value)
+    @redis.set(total_words_key, value).to_i
   end
   
   def total_documents=(value)
-    @redis.set(total_documents_key, value)
+    @redis.set(total_documents_key, value).to_i
   end
   
   def categories_documents=(args)
