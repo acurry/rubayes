@@ -11,13 +11,6 @@ module RubayesRedisKeyset
   PLACEHOLDER_KEY = "qwertyuio"
   PLACEHOLDER_VALUE = "asdfghjkl"
   
-  # @words
-  # => rubayes:words
-  # @words[category] => hash
-  # => rubayes:words:category
-  # @words[category][word] => integer
-  # => rubayes:words:category:word 
-  
   def root_key
     "#{ROOT_KEY}"
   end
