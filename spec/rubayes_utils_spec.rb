@@ -1,4 +1,4 @@
-require_relative "../rubayes/rubayes_utils"
+require_relative "../lib/rubayes_utils"
 
 class DummyUtils; include RubayesUtils; end
 

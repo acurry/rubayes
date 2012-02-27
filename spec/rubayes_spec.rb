@@ -1,6 +1,6 @@
 require "stemmer/porter"
 require_relative "../spec/mock_redis"
-require_relative "../rubayes/rubayes"
+require_relative "../lib/rubayes"
 
 describe Rubayes do  
   describe "train" do
