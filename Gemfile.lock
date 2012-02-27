@@ -1,7 +1,12 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    bson (1.6.0)
     hpricot (0.8.6)
+    mongo (1.6.0)
+      bson (= 1.6.0)
+    mongodb (2.1.0)
+      mongo (~> 1.5)
     redis (2.2.2)
     stemmer (1.0.1)
 
@@ -10,5 +15,6 @@ PLATFORMS
 
 DEPENDENCIES
   hpricot
+  mongodb
   redis
   stemmer
