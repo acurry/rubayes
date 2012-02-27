@@ -1,4 +1,4 @@
-require "stemmer"
+require "stemmer/porter"
 require_relative "common_words"
 
 module RubayesUtils

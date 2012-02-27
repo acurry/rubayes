@@ -1,3 +1,4 @@
+require "stemmer/porter"
 require_relative "../spec/mock_redis"
 require_relative "../rubayes/rubayes"
 
