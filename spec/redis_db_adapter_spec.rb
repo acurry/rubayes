@@ -4,6 +4,7 @@ require_relative "../db/redis_db_adapter"
 describe RedisDbAdapter do  
   before :each do
     @redis = RedisDbAdapter.new
+    @redis.redis = MockRedis.new
     @redis.redis.select(15)
     @redis.redis.flushdb
   end
@@ -39,7 +40,7 @@ describe RedisDbAdapter do
   
   describe "set and get" do
     it "should set and get the key & value" do
-      @redis.get("foo").should be_nil
+      @redis.get("foo").should eq ""
       @redis.set("foo", "bar")
       @redis.get("foo").should eq "bar"
     end
@@ -47,11 +48,11 @@ describe RedisDbAdapter do
   
   describe "incr and decr" do
     it "should increment and decrement an integer value" do
-      @redis.get("foo_int").should be_nil
+      @redis.get("foo_int").should eq ""
       @redis.set("foo_int", 0)
-      @redis.incr("foo_int")
+      @redis.incrby("foo_int")
       @redis.get("foo_int").should eq 1.to_s
-      @redis.decr("foo_int")
+      @redis.decrby("foo_int")
       @redis.get("foo_int").should eq 0.to_s
     end
   end

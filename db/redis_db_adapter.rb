@@ -14,6 +14,14 @@ class RedisDbAdapter
     @redis.client.port
   end
   
+  def select(value)
+    @redis.select(value)
+  end
+  
+  def flushdb
+    @redis.flushdb
+  end
+  
   def set(key, value)
     @redis.set(key, value)
   end
@@ -22,12 +30,12 @@ class RedisDbAdapter
     @redis.get(key)
   end
   
-  def incr(key)
-    @redis.incr(key)
+  def incrby(key)
+    @redis.incrby(key)
   end
   
-  def decr(key)
-    @redis.decr(key)
+  def decrby(key)
+    @redis.decrby(key)
   end
   
   def hash_get(key, field)

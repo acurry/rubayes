@@ -9,8 +9,8 @@ module RubayesRedisAdapter
   
   attr_accessor :redis
   
-  def initialize
-    @redis = Redis.new  
+  def initialize(redis=nil)
+    @redis = redis  
   end
   
   def flushdb

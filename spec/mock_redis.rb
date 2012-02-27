@@ -9,6 +9,9 @@ class MockRedis
     @redis = {}
   end
   
+  def select(value)
+  end
+  
   def set(key, value)
     @redis[key] = value
   end
@@ -48,5 +51,16 @@ class MockRedis
     @redis[key] ||= {}
     @redis[key][field] ||= 0
     @redis[key][field] += value
+  end
+
+  def decrby(key, value)
+    @redis[key] ||= 0
+    @redis[key] -= value
+  end
+
+  def hincrby(key, field, value)
+    @redis[key] ||= {}
+    @redis[key][field] ||= 0
+    @redis[key][field] -+ value
   end
 end

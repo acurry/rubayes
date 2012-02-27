@@ -5,8 +5,8 @@ require_relative "../lib/rubayes"
 describe Rubayes do  
   describe "train" do
     before :each do
-      @nb = Rubayes.new
-      @nb.redis = MockRedis.new
+      @nb = Rubayes.new(MockRedis.new)
+      # @nb.redis = MockRedis.new
       @dummy_spam_category = "spam"
       @dummy_nonspam_category = "tech"
       @dummy_spam_doc = "Get money rich quick via big viagra member!"
@@ -50,8 +50,8 @@ describe Rubayes do
   
   describe "word_probability" do
     before :each do
-      @nb = Rubayes.new
-      @nb.redis = MockRedis.new
+      @nb = Rubayes.new(MockRedis.new)
+      # @nb.redis = MockRedis.new
       @dummy_tech = "google apple java cool"
       @dummy_spam = "big money get rich quick via viagra penis member enlargment"
       ["tech", "spam"].each {|category| @nb.add_category(category)}
@@ -74,8 +74,8 @@ describe Rubayes do
   
   describe "category_probability" do
     before :each do
-      @nb = Rubayes.new
-      @nb.redis = MockRedis.new
+      @nb = Rubayes.new(MockRedis.new)
+      # @nb.redis = MockRedis.new
       @dummy_tech = "google apple java cool"
       @dummy_spam = "big money get rich quick via viagra penis member enlargment"
       ["tech", "spam"].each {|category| @nb.add_category(category)}

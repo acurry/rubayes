@@ -6,8 +6,9 @@ class Rubayes
   include RubayesUtils
   include RubayesRedisAdapter
   
-  def initialize(static=true)       
+  def initialize(redis, static=true)       
     super()
+    @redis = redis
     flushdb if static
   end
   
