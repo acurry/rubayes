@@ -30,12 +30,12 @@ class RedisDbAdapter
     @redis.get(key)
   end
   
-  def incrby(key)
-    @redis.incrby(key)
+  def incrby(key, value)
+    @redis.incrby(key, value)
   end
   
-  def decrby(key)
-    @redis.decrby(key)
+  def decrby(key, value)
+    @redis.decrby(key, value)
   end
   
   def hash_get(key, field)

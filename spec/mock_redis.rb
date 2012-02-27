@@ -35,10 +35,13 @@ class MockRedis
   end
   
   def hget(key, field)
+    @redis[key] ||= {}
+    @redis[key][field] ||= 0
     @redis[key][field].to_s
   end
   
   def hgetall(key)
+    @redis[key] ||= {}
     @redis[key]
   end
   
