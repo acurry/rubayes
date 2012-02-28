@@ -6,7 +6,6 @@ describe Rubayes do
   describe "train" do
     before :each do
       @nb = Rubayes.new(MockRedis.new)
-      # @nb.redis = MockRedis.new
       @dummy_spam_category = "spam"
       @dummy_nonspam_category = "tech"
       @dummy_spam_doc = "Get money rich quick via big viagra member!"
@@ -51,7 +50,6 @@ describe Rubayes do
   describe "word_probability" do
     before :each do
       @nb = Rubayes.new(MockRedis.new)
-      # @nb.redis = MockRedis.new
       @dummy_tech = "google apple java cool"
       @dummy_spam = "big money get rich quick via viagra penis member enlargment"
       ["tech", "spam"].each {|category| @nb.add_category(category)}
@@ -59,14 +57,12 @@ describe Rubayes do
       @nb.train("spam", @dummy_spam)
     end
     
-    # (1 + 1) occurences of the word "google" in all 4 tech document words
-    # 2 / 4 = 0.5
+    # (1 + 1) occurences of the word "google" in all 4 tech document words = 0.5
     it "should compute the probability of the word in a category" do
       @nb.word_probability("tech", "google".stem).should eq 0.5
     end
     
-    # (0 + 1) occurences of the word "google" in all 8 spam document words
-    # 1 / 8 = 0.125
+    # (0 + 1) occurences of the word "google" in all 8 spam document words = 0.125
     it "should compute the probability of the word in a category, even if the word does not exist" do
       @nb.word_probability("spam", "google".stem).should eq 0.125
     end
@@ -75,7 +71,6 @@ describe Rubayes do
   describe "category_probability" do
     before :each do
       @nb = Rubayes.new(MockRedis.new)
-      # @nb.redis = MockRedis.new
       @dummy_tech = "google apple java cool"
       @dummy_spam = "big money get rich quick via viagra penis member enlargment"
       ["tech", "spam"].each {|category| @nb.add_category(category)}

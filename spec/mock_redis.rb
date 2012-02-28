@@ -61,9 +61,9 @@ class MockRedis
     @redis[key] -= value
   end
 
-  def hincrby(key, field, value)
+  def hdecrby(key, field, value)
     @redis[key] ||= {}
     @redis[key][field] ||= 0
-    @redis[key][field] -+ value
+    @redis[key][field] -= value
   end
 end
